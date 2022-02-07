@@ -1,0 +1,37 @@
+.lpage{
+    background-image: url(../images/3.jpg );
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 99vh;
+    width: 99vw;
+    position: absolute;
+    top: 0;
+    padding-top: 50px;
+}
+.ltext{
+    text-align: left;
+    color: black;
+    margin-top: 20px;
+    margin-left: 270px;
+    text-shadow: whitesmoke 2px 0;
+}
+.ltext2{
+    text-align: left;
+    color: white;
+    margin-top: 200px;
+    margin-left: 90px;
+    font-size: xx-large;
+}
+.buttom{
+    font-size:10px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:white;
+        background:#638cb5;
+        border:0px;
+        width:80px;
+        height:19px;
+        border-radius: 12px
+}
+
