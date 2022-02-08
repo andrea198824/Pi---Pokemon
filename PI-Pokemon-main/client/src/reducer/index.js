@@ -21,7 +21,7 @@ const initialState = {
       case "GET_DETAIL":
         return {
           ...state,
-          detail: action.payload,
+          pokemons: action.payload,
         };
       case "SEARCH_POKEMON":
         return {
