@@ -1,5 +1,5 @@
 const initialState = {
-    pokemon: [],
+    pokemons: [],
     allPokemon: [],
     types: [],
     detail: [],
@@ -10,7 +10,7 @@ const initialState = {
       case "GET_POKEMON":
         return {
           ...state,
-          pokemon: action.payload,
+          pokemons: action.payload,
           allPokemon: action.payload,
         };
       case "GET_TYPE":
@@ -26,7 +26,7 @@ const initialState = {
       case "SEARCH_POKEMON":
         return {
           ...state,
-          pokemon: action.payload,
+          pokemons: action.payload,
         };
       case "POST_POKEMON":
         return {
@@ -42,7 +42,7 @@ const initialState = {
             : allPokemon.filter((el) => !el.createdInDb);
         return {
           ...state,
-          pokemon: createdFilter,
+          pokemons: createdFilter,
         };
         case "FILTER_BY_TYPE":
           const allPokemon2 = state.allPokemon;
@@ -50,7 +50,7 @@ const initialState = {
           );
           return {
             ...state,
-            pokemon: filterType,
+            pokemons: filterType,
           };
           case "ORDER_BY_NAME":
               const orderPokemon=
@@ -65,8 +65,10 @@ const initialState = {
                       })
                       return{
                           ...state,
-                          pokemon: orderPokemon,
+                          pokemons: orderPokemon,
                       }
+                      default:
+                        return state;
                       
     }
   }

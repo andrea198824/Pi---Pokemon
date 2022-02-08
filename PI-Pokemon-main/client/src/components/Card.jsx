@@ -1,20 +1,20 @@
 import React from "react";
 
 
-export default function Card({name, image, type }){
+export default function Card({name, image, types }){
     return (
         <div> 
             <div >               
             <p >{name}</p>
             </div>
-            <img
+            <image
             src={image}
             alt='Image not found'
             width='240px'
             height='180px'
           />
             <div >
-            <h6>Tipo: {type}</h6>
+            <h6>Tipo: {types}</h6>
             </div>
             <br/>
 

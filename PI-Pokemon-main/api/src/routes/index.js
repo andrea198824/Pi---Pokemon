@@ -63,7 +63,7 @@ const getAllPokemon = async () => {
     return infoTotal;
 }
 
-router.get("/pokemon", async (req, res, next) => {
+router.get("/pokemons", async (req, res, next) => {
     try {
         const name = req.query.name;
         let pokeTotal = await getAllPokemon(); //me traigo todos, Db y api
@@ -87,7 +87,7 @@ router.get("/pokemon", async (req, res, next) => {
 });
 
 
-router.get('/pokemon/:id', async (req, res) => {
+router.get('/pokemons/:id', async (req, res) => {
     const { id } = req.params
     const findPokemon = await getAllPokemon()
     if (id) {
@@ -112,7 +112,7 @@ router.get('/type', async (req, res) => {
     res.send(allTypes);
 })
 
-router.post('/pokemons', async (req, res, next) => {
+router.post('/pokemon', async (req, res, next) => {
     try {
         const { name, image, attack, defense, speed, height, weight, types, createdInDb } = req.body;
 
