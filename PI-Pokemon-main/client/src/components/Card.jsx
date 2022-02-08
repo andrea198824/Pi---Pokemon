@@ -1,19 +1,20 @@
 import React from "react";
+import '../css/Card.css'
 
 
-export default function Card({name, image, types }){
+export default function Card({name, image, types}){
     return (
         <div> 
-            <div >               
+            <div lassName="caja" >               
             <p >{name}</p>
             </div>
-            <image
+            <img
             src={image}
             alt='Image not found'
             width='240px'
             height='180px'
           />
-            <div >
+            <div className="type" >
             <h6>Tipo: {types}</h6>
             </div>
             <br/>

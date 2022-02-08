@@ -1,0 +1,35 @@
+.home {
+  
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 99vh;
+    width: 99vw;
+    position: absolute;
+    top: 0;
+  }
+  
+  .center {
+    margin-top: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .center a {
+    text-decoration:none;
+    color:black;
+  }
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    margin-top: 10px;
+    margin-left: 2%;
+  }
+  .tit{
+    text-decoration:none;
+    color:black;
+  }
+  
+  
