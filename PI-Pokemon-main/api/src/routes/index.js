@@ -27,8 +27,8 @@ const getApiInfo = async () => {
         allPokemon.push({
             id: apiInfo.data.id,
             name: apiInfo.data.name,
-            image: apiInfo.data.sprites.front_default,
-            imageDetail: apiInfo.data.sprites.other.dream_world.front_default,
+            image: apiInfo.data.sprites.other.dream_world.front_default,
+            imageDetail: apiInfo.data.sprites.other.home.front_default ,
             hp: apiInfo.data.stats[0].base_stat,
             attack: apiInfo.data.stats[1].base_stat,
             defense: apiInfo.data.stats[2].base_stat,

@@ -1,26 +1,25 @@
 import React from "react";
+import '../css/Paginado.css';
 
 
-const Pagination = ({pokemonPerPage, allPokemon, pagination}) => {
+export default function Pagination ({ pokemonPerPage, allPokemons, pagination }) {
 
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(allPokemon/pokemonPerPage); i++) {
-        pageNumbers.push(i);        
+    for (let i = 1; i <= Math.ceil(allPokemons / pokemonPerPage); i++) {
+        pageNumbers.push(i);
     }
 
-    return ( 
+    return (
         <nav>
-            <ul>
-                {
-                    pageNumbers?.map(number => (
-                        <li key={number}>
-                            <a href="/#" onClick={() => pagination(number)}>{number}</a>
+            <ul className="pagination" >
+                {pageNumbers &&
+                    pageNumbers.map(number => (
+                        <li key={number} >
+                            <button onClick={() => pagination(number)}>{number}</button>
                         </li>
                     ))
                 }
             </ul>
         </nav>
-     );
+    )
 }
- 
-export default Pagination;

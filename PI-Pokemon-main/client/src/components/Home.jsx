@@ -14,7 +14,6 @@ export default function Home() {
 
     const dispatch = useDispatch();
     const allPokemons = useSelector((state) => state.pokemons);
-    console.log(allPokemons);
     const state = useSelector((state) => state)
     //const [,setOrder] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +35,7 @@ export default function Home() {
     useEffect(() => {
         dispatch(getPokemon());
         dispatch(getTypes());
-    })
+    },[dispatch]);
 
     function handleClick(e) {
         e.preventDefault(); //preventDefault se lo paso para que no se rompa 
@@ -45,14 +44,15 @@ export default function Home() {
     return (
         <div className='home'>
             <div className='center'>
-                <h1>Elige a tu Pokemon!</h1>
+                <h1>Elige a tus Pokemon!</h1>
             </div>
-
+            <div>
             <Pagination
                 pokemonPerPage={pokemonPerPage}
-                state={state.length}
+                allPokemons={allPokemons.length}
                 pagination={pagination}
             />
+            </div>
             <div className='main'>
                 {
                     currentPokemon?.map((c) => {
