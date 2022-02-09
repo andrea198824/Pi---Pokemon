@@ -45,7 +45,7 @@ export function getDetailByName(name) {
 
 export function postPokemon(payload) {
   return async function (dispatch) {
-    var json = await axios.post("http://localhost:3001/pokemons", payload);
+    var json = await axios.post("http://localhost:3001/pokemon", payload);
     return dispatch({
       type: "POST_POKEMON",
       payload: json.data,

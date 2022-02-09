@@ -17,7 +17,7 @@ export default function Home() {
 
     const dispatch = useDispatch();
     const allPokemons = useSelector((state) => state.pokemons);
-    const state = useSelector((state) => state)
+    //const state = useSelector((state) => state)
     const [currentPage, setCurrentPage] = useState(1);
     const pokemonPerPage = 12;
     const lastPokemon = currentPage * pokemonPerPage;
@@ -80,7 +80,7 @@ export default function Home() {
                     <select onClick={(e) => handleFilterByType(e)}>
                         <option value=''>Filtrar por tipo</option>
                         {allType.map((c) => (
-                            <option key={c.id} value={c.name}>{c.name}</option>))}
+                            <option  value={c.name}>{c.name}</option>))}
                     </select>
                 </div>
                 <div className='center'>

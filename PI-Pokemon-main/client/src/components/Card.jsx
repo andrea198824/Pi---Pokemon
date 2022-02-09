@@ -5,9 +5,9 @@ import '../css/Card.css'
 export default function Card({name, image, types}){
     return (
         <div> 
-            <div lassName="caja" >               
+            <div className="caja" >               
             <p >{name}</p>
-            </div>
+
             <img
             src={image}
             alt='Image not found'
@@ -16,6 +16,7 @@ export default function Card({name, image, types}){
           />
             <div className="type" >
             <h6>Tipo: {types}</h6>
+            </div>
             </div>
             <br/>
 

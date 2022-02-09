@@ -114,10 +114,11 @@ router.get('/type', async (req, res) => {
 
 router.post('/pokemon', async (req, res, next) => {
     try {
-        const { name, image, attack, defense, speed, height, weight, types, createdInDb } = req.body;
+        const { name, image, hp, attack, defense, speed, height, weight, types, createdInDb } = req.body;
 
         const newPokemon = await Pokemon.create({
             name,
+            hp,
             image,
             attack,
             defense,
@@ -126,8 +127,7 @@ router.post('/pokemon', async (req, res, next) => {
             weight,
             createdInDb
         });
-        console.log("777")
-        console.log(req.body)
+
         let typeDb = await Type.findAll({
             where: { name: types },
 
