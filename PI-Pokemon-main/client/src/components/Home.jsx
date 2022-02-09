@@ -83,6 +83,9 @@ export default function Home() {
                             <option key={c.id} value={c.name}>{c.name}</option>))}
                     </select>
                 </div>
+                <div className='center'>
+                    <Link to='/pokemon'>Crear Pokemon</Link>
+                </div>
             <div className='center'>
             <Pagination
                 pokemonPerPage={pokemonPerPage}

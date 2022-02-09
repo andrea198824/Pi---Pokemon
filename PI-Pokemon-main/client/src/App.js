@@ -2,6 +2,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import CardDetail from './components/CardDetail';
+import CreatePokemon from './components/CreatePokemon';
 
 
 
@@ -21,6 +22,11 @@ function App() {
     <div >
       <Routes>
       <Route  path='/pokemons/:id' element = {<CardDetail/>}/>
+      </Routes>
+    </div>
+    <div >
+      <Routes>
+      <Route  path='/pokemon' element = {<CreatePokemon/>}/>
       </Routes>
     </div>
 
