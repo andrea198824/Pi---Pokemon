@@ -54,84 +54,37 @@ export default function CreatePokemon() {
         dispatch(getPokemon())
     }, [dispatch])
 
-
-
-    // function handleChange(e) {
-    //     e.preventDefault();
-    //     setInput({
-    //         ...input,
-    //         [e.target.name]: e.target.value,
-    //     });
-    //     setErrors(
-    //         validate({
-    //             ...input,
-    //             [e.target.name]: e.target.value,
-    //         })
-    //     );
-    //     console.log(input);
-    // }
-
-
-    // function handleSelect(e) {
-
-    //     setInput({
-    //         ...input,
-    //         types: Array.from(new Set([...input.types, e.target.value]))
-    //     })
-
-    //     if (input.name === '' || input.hp === '' || input.attack === '' || input.defense === '' || input.height === '' || input.weight === '' || input.types.length < 0) {
-    //         setButton(true)
-    //     } else {
-    //         setButton(false)
-    //     }
-
-    // }
-
-
-
-
-
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     if (pokemons.find((poke) => poke.name.toLowerCase() === input.name.toLowerCase().trim())) {
-    //         alert("Ya existe el Pokemon");
-    //         setErrors({
-    //             ...input,
-    //             [e.target.name]: "Pokémon duplicated",
-    //         });
-    //         history.push('/home')
-    //     } else {
-    //         dispatch(postPokemon(input));
-    //         alert('Pokemon Created');
-    //         setInput({
-    //             name: "", hp: "", attack: "", defense: "", speed: "", height: "", weight: "", types: []
-    //         });
-    //         history.push('/home');
-    //     }
-
-
-    // }
-
-    // function handleDelete(e) {
-    //     e.preventDefault();
-    //     setTypes(types.filter((types) => types !== e.target.value));
-    //     console.log(types);
-    //     console.log(e.target.value);
-    // }
-
-
-
     return (
-        <div >
+        <div>
 
             <h1 >Crea tu propio Pokemon</h1>
-            <form>
-                <legend>Name:</legend>
-                <input type='text' name='name' placeholder="Write a name..." title="Only letters and blank spaces are accepted" pattern="^[A-Za-zÑÁáÉéÍíÓóÚúÜü\s]+$" required />
-                {/*<input type="submit" value="Enviar"/>*/}
-                {errors.name && (
-                    <p>{errors.name}</p>
-                )}
+            <form href="1">
+                <div>
+                    <legend>Name:</legend>
+                    <input type='text' value={input.name} name='name' placeholder="Write a name..." title="Only letters and blank spaces are accepted" pattern="^[A-Za-zÑÁáÉéÍíÓóÚúÜü\s]+$" required />
+                    {/*<input type="submit" value="Enviar"/>*/}
+                    {errors.name && (
+                        <p>{errors.name}</p>
+                    )}
+                </div>
+                <div>
+                    <legend>Hp:</legend>
+                    <input type='number' value={input.hp} name='hp' placeholder="Write the hp of your pokemon..." title="Only numbers are accepted" pattern="[0-9]{3}" required />
+                    {/*<input type="submit" value="Enviar"/>*/}
+                    {errors.hp && (
+                        <p>{errors.hp}</p>
+                    )}
+                </div>
+                <div>
+                    <legend>Weight:</legend>
+                    <input type='number' value={input.weight} name='weight' placeholder="Write the hp of your pokemon..." title="Only numbers are accepted" pattern="[0-9]{2}" required />
+                    {/*<input type="submit" value="Enviar"/>*/}
+                    {errors.hp && (
+                        <p>{errors.hp}</p>
+                    )}
+                </div>
+                <button>Crear Pokemon</button>
+
             </form>
         </div>
 
