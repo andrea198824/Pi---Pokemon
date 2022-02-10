@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import Card from "./Card";
 import Pagination from "./Pagination"
 import Loading from './Loading';
+import SearchBar from "./SearchBar";
 
 export default function Home() {
 
@@ -93,13 +94,14 @@ export default function Home() {
                             }
                         
                     </select>
+                    <SearchBar/>
                     <select
                         onChange={(e) => handleOrderByName(e)}
                     >
                         <option value='Order by Name'>Orden by name</option>
                         <option value='Asc'> A - Z</option>
                         <option value='Desc'>Z - A</option>
-                        
+
                     </select>
                 </div>
                 <div className='center' color='white'>
@@ -119,10 +121,10 @@ export default function Home() {
                             <React.Fragment>
 
                                 <div>
-                                    <div >
+                                    <div  >
                                         <Link className='tit' to={'/pokemons/' + c.id}>
                                             <div  >
-                                                <Card name={c.name} image={c.image}
+                                                <Card class="pokemon" name={c.name} image={c.image}
                                                     types={
                                                         c.types.map((c) => c.name)} key={c.id} />
                                             </div>
