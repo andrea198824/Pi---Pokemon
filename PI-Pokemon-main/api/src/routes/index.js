@@ -113,9 +113,17 @@ router.get('/type', async (req, res) => {
 })
 
 router.post('/pokemon', async (req, res, next) => {
-    try {
+    
         const { name, image, hp, attack, defense, speed, height, weight, types, createdInDb } = req.body;
-
+        try {
+            let pokemonExist = await Pokemon.findOne({
+                where:{
+                    name : name.toLowerCase(),
+                }
+            });
+            
+            if(pokemonExist) return res.json({msg: 'Pokemon existente'});
+            
         const newPokemon = await Pokemon.create({
             name,
             hp,

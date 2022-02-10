@@ -6,7 +6,8 @@ import {
     getPokemon,
     getTypes,
     filterPokemonCreated,
-    filterPokemonType
+    filterPokemonType,
+    orderByName
 } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
@@ -47,11 +48,18 @@ export default function Home() {
     }
     function handleFilterCreated(e) {
         e.preventDefault(); 
-        dispatch(filterPokemonCreated(e.target.value)); 
+        dispatch(filterPokemonCreated(e.target.value));
+        setCurrentPage(1); 
     } 
     function handleFilterByType(e) {
         e.preventDefault();
         dispatch(filterPokemonType((e.target.value)));
+        setCurrentPage(1);
+    }
+    function handleOrderByName(e){
+        e.preventDefault();
+        dispatch(orderByName(e.target.value));
+        setCurrentPage(1);
     }
 
     if(!allPokemons.length){
@@ -66,7 +74,7 @@ export default function Home() {
                 <h1>Elige a tus Pokemon!</h1>
             </div>
             <div  className='center'>
-            <select onClick={(e) => handleFilterCreated(e)}>
+            <select onChange={(e) => handleFilterCreated(e)}>
                         <option value='All'>Todos</option>
                         <option value='Created'>Creado por ti!</option>
                         <option value='Source'>Base de datos</option>
@@ -74,16 +82,27 @@ export default function Home() {
                     </select>
                     </div>
                     <div className='center'>
-                    <button onClick={e => { handleClick(e) }}>
+                    <button onChange={e => { handleClick(e) }}>
                         Volver a cargar todos los Pokemon
                     </button>
-                    <select onClick={(e) => handleFilterByType(e)}>
+                    <select onChange={(e) => handleFilterByType(e)}>
                         <option value=''>Filtrar por tipo</option>
-                        {allType.map((c) => (
-                            <option  value={c.name}>{c.name}</option>))}
+                        {allType.map((c) => {
+                            return(
+                            <option  value={c.name}>{c.name}</option>)})
+                            }
+                        
+                    </select>
+                    <select
+                        onChange={(e) => handleOrderByName(e)}
+                    >
+                        <option value='Order by Name'>Orden by name</option>
+                        <option value='Asc'> A - Z</option>
+                        <option value='Desc'>Z - A</option>
+                        
                     </select>
                 </div>
-                <div className='center'>
+                <div className='center' color='white'>
                     <Link to='/pokemon'>Crear Pokemon</Link>
                 </div>
             <div className='center'>

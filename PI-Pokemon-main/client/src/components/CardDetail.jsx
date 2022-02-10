@@ -29,23 +29,23 @@ export default function Detail() {
     } else {
 
         return (
-            <div >
+            <div className="homecard" >
                 {
                     detailPokemon?.map((c) => {
                         return (
                             <React.Fragment>
 
-                                <div>
-                                    <div >
-                                        <h1>{c.name.charAt(0).toUpperCase() + c.name.slice(1)}</h1>
-                                        <img src={c.imageDetail} alt='Img not found' />
-                                        <h2>Type: {c.types.map((c) => c.name)}</h2>
-                                        <h3>Id: {c.id}</h3>
-                                        <h3>Statistics:
+                                <div className="margin">
+                                    <div className="titulo">
+                                        <h1 className="texto" >{c.name.charAt(0).toUpperCase() + c.name.slice(1)}</h1>
+                                        <img className="imagen"  src={c.imageDetail} alt='Img not found' />
+                                        <h2 className="texto1">Type: {c.types.map((c) => c.name)}</h2>
+                                        <h3 className="texto1">Id: {c.id}</h3>
+                                        <h3 className="texto1">Statistics:
                                             attack - {c.attack}, defense - {c.defense},
                                             speed - {c.speed}, Hp - {c.hp}</h3>
-                                        <h3>Heigh: {c.height}</h3>
-                                        <h3>Weight: {c.weight}</h3>
+                                        <h3 className="texto1">Heigh: {c.height}</h3>
+                                        <h3 className="texto1">Weight: {c.weight}</h3>
                                     </div>
                                 </div>
                                 <Link to='/home'>

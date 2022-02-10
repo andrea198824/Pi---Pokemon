@@ -44,32 +44,39 @@ export function getDetailByName(name) {
 }
 
 export function postPokemon(payload) {
-  return async function (dispatch) {
-    var json = await axios.post("http://localhost:3001/pokemon", payload);
-    return dispatch({
-      type: "POST_POKEMON",
-      payload: json.data,
-    });
-  };
+  return function(dispatch){
+      return fetch('http://localhost:3001/pokemon',{
+                      method: 'POST',
+                      headers: {'Content-Type': 'application/json'},
+                      body: JSON.stringify(payload)
+      })
+          .then(response =>response.json())
+          .then((json)=>{
+              dispatch({type: "POST_POKEMON", payload: json});
+          })
+          .catch((error) =>{console.log(error)})
+  }
+  
 }
 
 export function filterPokemonCreated(payload) {
   return {
     type: "FILTER_POKEMON_CREATED",
-    payload,
+    payload: payload,
   };
 }
 
 export function filterPokemonType(payload) {
   return {
     type: "FILTER_BY_TYPE",
-    payload,
+    payload: payload,
   };
 }
 export function orderByName(payload) {
   return {
     type: "ORDER_BY_NAME",
-    payload,
+    payload: payload,
   };
 }
+
 
