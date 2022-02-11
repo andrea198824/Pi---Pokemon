@@ -12,38 +12,79 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 const getApiInfo = async () => {
-    const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=40`);
-    const apiData = apiUrl.data.results.map(c => {
-        return {
-            name: c.name,
-            url: c.url,
-        };
-    })
-
-    var allPokemon = [];
-
-    for (pokemon of apiData) {
-        var apiInfo = await axios.get(`${pokemon.url}`);
-        allPokemon.push({
-            id: apiInfo.data.id,
-            name: apiInfo.data.name,
-            image: apiInfo.data.sprites.other.dream_world.front_default,
-            imageDetail: apiInfo.data.sprites.other.home.front_default ,
-            hp: apiInfo.data.stats[0].base_stat,
-            attack: apiInfo.data.stats[1].base_stat,
-            defense: apiInfo.data.stats[2].base_stat,
-            speed: apiInfo.data.stats[5].base_stat,
-            height: apiInfo.data.height,
-            weight: apiInfo.data.weight,
-            types: apiInfo.data.types.map(types => ({
-                name: types.type.name,
-                id: types.slot
-            })),
-
-        })
+    try{
+        let url = `https://pokeapi.co/api/v2/pokemon`;
+        let pokemons = [];
+        do {
+            let info = await axios.get(url);
+            let pokemosApi = info.data;
+            let pokeInfo = pokemosApi.results.map((e) =>{
+                return {
+                    name : e.name,
+                    url: e.url,
+                };
+            });
+            pokemons.push(...pokeInfo);
+            url=pokemosApi.next;
+            } while (url !== null && pokemons.length < 40);
+            let poksData = Promise.all(
+                pokemons.map(async (e) =>{
+                    let pokemon = await axios.get(e.url);
+                    return {
+                        id: pokemon.data.id,
+                        name: pokemon.data.name,
+                        image: pokemon.data.sprites.other.dream_world.front_default,
+                        imageDetail: pokemon.data.sprites.other.home.front_default ,
+                        hp: pokemon.data.stats[0].base_stat,
+                        attack: pokemon.data.stats[1].base_stat,
+                        defense: pokemon.data.stats[2].base_stat,
+                        speed: pokemon.data.stats[5].base_stat,
+                        height: pokemon.data.height,
+                        weight: pokemon.data.weight,
+                        types: pokemon.data.types.map(types => ({
+                            name: types.type.name,
+                        })), 
+                    }
+                    
+                })
+            );
+            return poksData;
+    } catch (e) {
+        console.log(e);
     }
-    return allPokemon;
 }
+    
+//     const apiData = apiUrl.data.results.map(c => {
+//         return {
+//             name: c.name,
+//             url: c.url,
+//         };
+//     })
+
+//     var allPokemon = [];
+
+//     for (pokemon of apiData) {
+//         var apiInfo = await axios.get(`${pokemon.url}`);
+//         allPokemon.push({
+//             id: apiInfo.data.id,
+//             name: apiInfo.data.name,
+//             image: apiInfo.data.sprites.other.dream_world.front_default,
+//             imageDetail: apiInfo.data.sprites.other.home.front_default ,
+//             hp: apiInfo.data.stats[0].base_stat,
+//             attack: apiInfo.data.stats[1].base_stat,
+//             defense: apiInfo.data.stats[2].base_stat,
+//             speed: apiInfo.data.stats[5].base_stat,
+//             height: apiInfo.data.height,
+//             weight: apiInfo.data.weight,
+//             types: apiInfo.data.types.map(types => ({
+//                 name: types.type.name,
+//                 id: types.slot
+//             })),
+
+//         })
+//     }
+//     return allPokemon;
+// }
 
 const getDbInfo = async () => {
     return await Pokemon.findAll({
@@ -56,6 +97,33 @@ const getDbInfo = async () => {
         }
     })
 }
+
+const getPokemonDetail = async(e) => {
+    try{
+        const apiData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${e}`);
+        const data = await apiData.data;
+        const pokeData = {
+            id: data.id,
+            name: data.name,
+            img: data.sprites.other.home.front_default,
+            types: data.types.map((e) => {
+                return{
+                    name: e.type.name,
+                };
+            }),
+            hp: apiInfo.data.stats[0].base_stat,
+            attack: apiInfo.data.stats[1].base_stat,
+            defense: apiInfo.data.stats[2].base_stat,
+            speed: apiInfo.data.stats[5].base_stat,
+            height: apiInfo.data.height,
+            weight: apiInfo.data.weight
+        };
+        return pokeData;
+    } catch (e){
+        console.log(e)
+    }
+};
+
 const getAllPokemon = async () => {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDbInfo();

@@ -184,23 +184,32 @@ export function CreatePokemon() {
                         onChange={handleOnChange}
 
                     />
+                    <label className='cyd'>Imagen: </label>
+                    <input
+                        type='text'
+                        value={input.image}
+                        name='img'
+                        placeholder='URL image'
+                        onChange={(e) => handleOnChange(e)}
+                        />
+                        {errors.image && <p>{errors.image}</p>}
                     {errors.weight && (<p>{errors.weight}</p>)}
                     <label className='cyd'>Type: </label>
                     <select
-                            name='type'
-                            onChange={(e) => handleSelect(e)}
-                            type='text'
-                        >
-                            <option value={null}></option>
-                            {types.map((typ, id) => {
+                        name='type'
+                        onChange={(e) => handleSelect(e)}
+                        type='text'
+                    >
+                        <option value={null}></option>
+                        {types.map((typ, id) => {
 
-                                return (
-                                    <option key={id} value={typ.name}>
-                                        {typ.name}
-                                    </option>
-                                );
-                            })}
-                        </select>
+                            return (
+                                <option key={id} value={typ.name}>
+                                    {typ.name}
+                                </option>
+                            );
+                        })}
+                    </select>
                     {types2.map((typ, id) => {
 
                         return (
@@ -217,14 +226,14 @@ export function CreatePokemon() {
                             </React.Fragment>
                         );
                     })}
-          
-            {/*errors.types && (<p className={style.error}>{errors.types}</p>)*/}
-            <ul ><li >{input.types?.map(e => e + ' ')}</li></ul>
-            <button >Create a Pokemon</button>
-            <Link to='/home'>
-                <button type='submit' name='submit'>Volver</button>
-            </Link>
-        </form>
+
+                    {/*errors.types && (<p className={style.error}>{errors.types}</p>)*/}
+                    <ul ><li >{input.types?.map(e => e + ' ')}</li></ul>
+                    <button >Create a Pokemon</button>
+                    <Link to='/home'>
+                        <button type='submit' name='submit'>Volver</button>
+                    </Link>
+                </form>
             </div >
         </div >
     )

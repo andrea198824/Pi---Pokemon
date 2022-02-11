@@ -33,25 +33,33 @@ export function rootReducer(state = initialState, action) {
       };
     case "FILTER_POKEMON_CREATED":
       let pokemonsCreated = state.allPokemon;
-      let filterCreated =
-        action.payload === "Created"
-          ? pokemonsCreated.filter((e) => e.createdId)
-          : pokemonsCreated.filter((e) => !e.createdId);
-
+      let filterCreated;
+      if(action.payload === "Created"){
+        filterCreated = pokemonsCreated.filter((e)=> e.createInDb);
+        } else if (action.payload === "Source"){
+          filterCreated = pokemonsCreated.filter((e)=> !e.createInDb);
+        }else {
+          filterCreated = pokemonsCreated
+        }
       return {
         ...state,
-        pokemons: action.payload === "all" ? state.allPokemon : filterCreated,
+        pokemons: filterCreated,
       };
 
     case "FILTER_BY_TYPE":
       const allPokemon2 = state.allPokemon;
-      const filterType = allPokemon2.filter((el) =>
-        el.types?.includes(action.payload)
+      let typeFiltered = action.payload === "All"
+      ? allPokemon2 : allPokemon2.filter((e) => e.types.some((e )=> e.name === action.payload)
       );
+      if(typeFiltered.length < 0){
+        typeFiltered = allPokemon2;
+        alert ("Error");
+      }
       return {
         ...state,
-        pokemons: filterType,
+        pokemons: typeFiltered
       };
+
       case "ORDER_BY_NAME":
         let orderPokemon;
         if(action.payload === 'Asc'){
