@@ -41,103 +41,115 @@ export default function Home() {
     useEffect(() => {
         dispatch(getPokemon());
         dispatch(getTypes());
-    },[dispatch]);
+    }, [dispatch]);
 
     function handleClick(e) {
         e.preventDefault(); //preventDefault se lo paso para que no se rompa 
         dispatch(getPokemon()) // esto me lo resetea por si se bugea, y me trae todo denuevo
     }
     function handleFilterCreated(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         dispatch(filterPokemonCreated(e.target.value));
-        setCurrentPage(1); 
-    } 
+        setCurrentPage(1);
+    }
     function handleFilterByType(e) {
         e.preventDefault();
         dispatch(filterPokemonType((e.target.value)));
         setCurrentPage(1);
     }
-    function handleOrderByName(e){
+    function handleOrderByName(e) {
         e.preventDefault();
         dispatch(orderByName(e.target.value));
         setCurrentPage(1);
     }
 
-    if(!allPokemons.length){
-        return(
-            <Loading/>
+    if (!allPokemons.length) {
+        return (
+            <Loading />
         )
-    }else{
+    } else {
 
-    return (
-        <div className='home'>
-            <div className='center'>
-                <h1>Elige a tus Pokemon!</h1>
-            </div>
-            <div  className='center'>
-            <select onChange={(e) => handleFilterCreated(e)}>
-                        <option value='All'>Todos</option>
-                        <option value='Created'>Creado por ti!</option>
-                        <option value='Source'>Base de datos</option>
+        return (
+            <div className='home'>
+                <div className='titulo'>
+                    <h1>Choose your  Pokemon!</h1>
+                </div>
+                <div className='barra'>
+                    <SearchBar />
+                    <div>
+                        <select onChange={(e) => handleFilterCreated(e)}>
 
-                    </select>
+                            <option value='All'>Todos</option>
+                            <option value='Created'>Created</option>
+                            <option value='Source'>Database</option>
+
+                        </select>
                     </div>
-                    <div className='center'>
-                    <button onChange={e => { handleClick(e) }}>
-                        Volver a cargar todos los Pokemon
-                    </button>
-                    <select onChange={(e) => handleFilterByType(e)}>
-                        <option value=''>Filtrar por tipo</option>
-                        {allType.map((c) => {
-                            return(
-                            <option  value={c.name}>{c.name}</option>)})
+                    <div>
+
+                        <select onChange={(e) => handleFilterByType(e)}>
+                            <option value=''>Search by type</option>
+                            {allType.map((c) => {
+                                return (
+                                    <option value={c.name}>{c.name}</option>)
+                            })
                             }
-                        
-                    </select>
-                    <SearchBar/>
-                    <select
-                        onChange={(e) => handleOrderByName(e)}
-                    >
-                        <option value='Order by Name'>Orden by name</option>
-                        <option value='Asc'> A - Z</option>
-                        <option value='Desc'>Z - A</option>
 
-                    </select>
-                </div>
-                <div className='center' color='white'>
-                    <Link to='/pokemon'>Crear Pokemon</Link>
-                </div>
-            <div className='center'>
-            <Pagination
-                pokemonPerPage={pokemonPerPage}
-                allPokemons={allPokemons.length}
-                pagination={pagination}
-            />
-            </div>
-            <div className='main'>
-                {
-                    currentPokemon?.map((c) => {
-                        return (
-                            <React.Fragment>
+                        </select>
 
-                                <div>
-                                    <div  >
-                                        <Link className='tit' to={'/pokemons/' + c.id}>
+                        <select onClick={(e) => handleOrderByName(e)}>
+                            <option value='Order by Name'>Order by name</option>
+                            <option value='Asc'> A - Z</option>
+                            <option value='Desc'>Z - A</option>
+                            <option value='Atc+'>Attack +</option>
+                            <option value='Atc-'>Attack -</option>
+
+                        </select>
+                    </div>
+                    <button onClick={e => { handleClick(e) }}>
+                        Reload all Pokemon
+                    </button>
+
+                    <div className='center' color='white'>
+                        <Link to='/pokemon'>
+                            <button>Create a new pokemon</button>
+                            </Link>
+                    </div>
+                </div>
+                <div className='center'>
+                    <Pagination
+                        pokemonPerPage={pokemonPerPage}
+                        allPokemons={allPokemons.length}
+                        pagination={pagination}
+                    />
+                </div>
+                <div>
+                    <div className='main'>
+                        {
+                            currentPokemon?.map((c) => {
+                                return (
+                                    <React.Fragment>
+
+                                        <div>
                                             <div  >
-                                                <Card class="pokemon" name={c.name} image={c.image}
-                                                    types={
-                                                        c.types.map((c) => c.name)} key={c.id} />
+                                                <Link className='tit' to={'/pokemons/' + c.id}>
+                                                    <div  >
+                                                        <Card class="pokemon" name={c.name} image={c.image}
+                                                            types={
+                                                                c.types.map((c) => c.name)} key={c.id} />
+                                                    </div>
+                                                </Link>
                                             </div>
-                                        </Link>
-                                    </div>
-                                </div>
+                                        </div>
 
-                            </React.Fragment>
-                        )
-                    })
-                }
+                                    </React.Fragment>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+
             </div>
-
-        </div>
-    )
-            }}
+        )
+    }
+}

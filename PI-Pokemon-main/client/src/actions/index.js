@@ -43,6 +43,7 @@ export function getDetailByName(name) {
   };
 }
 
+
 export function postPokemon(payload) {
   return function(dispatch){
       return fetch('http://localhost:3001/pokemon',{

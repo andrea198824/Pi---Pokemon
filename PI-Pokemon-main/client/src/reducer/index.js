@@ -61,52 +61,53 @@ export function rootReducer(state = initialState, action) {
       };
 
       case "ORDER_BY_NAME":
-        let orderPokemon;
-        if(action.payload === 'Asc'){
-          orderPokemon = state.pokemons.sort(function(a,b){
-                if(a.name > b.name){
-                    return 1;
-                }
-                if(b.name > a.name){
-                    return -1;
-                }
-                return 0;
-            })
-        }else if (action.payload === 'Desc'){
-          orderPokemon = state.pokemons.sort(function(a,b){
-                if(a.name > b.name){
-                    return -1;
-                }
-                if(b.name > a.name){
-                    return 1;
-                }
-                return 0;
-            })
-        }else if(action.payload === 'attack+'){
-          orderPokemon = state.pokemons.sort(function(a,b){
-                if(a.attack > b.attack){
-                    return -1;
-                }
-                if(b.attack > a.attack){
-                    return 1;
-                }
-                return 0;
-            })
-        }else{
-          orderPokemon = state.pokemons.sort(function(a,b){
-                if(a.attack > b.attack){
-                    return 1;
-                }
-                if(b.attack > a.attack){
-                    return -1;
-                }
-                return 0;
-            })
-        }
-      return {
-        ...state,
-        pokemons: orderPokemon,
-      };
+            let orderSort;
+            if(action.payload === 'Asc'){
+               orderSort = state.pokemons.sort(function(a,b){
+                    if(a.name > b.name){
+                        return 1;
+                    }
+                    if(b.name > a.name){
+                        return -1;
+                    }
+                    return 0;
+                })
+            }else if (action.payload === 'Desc'){
+                orderSort = state.pokemons.sort(function(a,b){
+                    if(a.name > b.name){
+                        return -1;
+                    }
+                    if(b.name > a.name){
+                        return 1;
+                    }
+                    return 0;
+                })
+            }else if(action.payload === 'Attack+'){
+                orderSort = state.pokemons.sort(function(a,b){
+                    if(a.attack > b.attack){
+                        return -1;
+                    }
+                    if(b.attack > a.attack){
+                        return 1;
+                    }
+                    return 0;
+                })
+            }else{
+                orderSort = state.pokemons.sort(function(a,b){
+                    if(a.attack > b.attack){
+                        return 1;
+                    }
+                    if(b.attack > a.attack){
+                        return -1;
+                    }
+                    return 0;
+                })
+            }
+
+            return{
+                ...state,
+                pokemons : orderSort
+            };
 
     default:
       return state;

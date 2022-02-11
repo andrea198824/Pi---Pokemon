@@ -6,7 +6,7 @@ export default function Card({name, image, types}){
     return (
         <div> 
             <div className="caja" >               
-            <p >{name}</p>
+            <p>{name.charAt(0).toUpperCase() + name.slice(1)}</p>
 
             <img
             src={image}
@@ -15,7 +15,7 @@ export default function Card({name, image, types}){
             height='180px'
           />
             <div className="type" >
-            <h6>Tipo: {types}</h6>
+            <h6>Type: {types}</h6>
             </div>
             </div>
             <br/>
