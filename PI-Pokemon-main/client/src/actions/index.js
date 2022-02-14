@@ -43,6 +43,16 @@ export function getDetailByName(name) {
   };
 }
 
+export function getDetailBySpeed(speed) {
+  return async function (dispatch) {
+    var json = await axios.get("http://localhost:3001/pokemons/?speed=" + speed);
+    return dispatch({
+      type: "SEARCH_POKEMON_SPEED",
+      payload: json.data,
+    });
+  };
+}
+
 
 export function postPokemon(payload) {
   return function(dispatch){

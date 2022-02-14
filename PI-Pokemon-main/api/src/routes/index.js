@@ -133,7 +133,7 @@ const getAllPokemon = async () => {
 
 router.get("/pokemons", async (req, res, next) => {
     try {
-        const name = req.query.name;
+        const {name, speed} = req.query;
         let pokeTotal = await getAllPokemon(); //me traigo todos, Db y api
         if (name) {
             // si hay un nombre por query
@@ -145,7 +145,15 @@ router.get("/pokemons", async (req, res, next) => {
                 : res
                     .status(404)
                     .send({ info: "Sorry, the pokemon you are looking for is not here." });
-        } else {
+        } else if(speed){
+            let speedPoke = await pokeTotal.filter((pok) =>
+            pok.speed == Number(speed));
+            speedPoke.length //si hay algún nombre
+                ? res.status(200).send(speedPoke)
+                : res
+                    .status(404)
+                    .send({ info: "Sorry, the pokemon you are looking for is not here." });
+        }else {
             res.status(200).send(pokeTotal); //el otro caso es que no haya un
             //query y manda un status 200 con todos los dogs
         }

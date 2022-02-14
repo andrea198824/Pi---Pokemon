@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getDetailByName } from "../actions";
+import { getDetailByName, getDetailBySpeed } from "../actions";
 
 
 
@@ -9,6 +9,7 @@ import { getDetailByName } from "../actions";
 export default function SearchBar() {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
+  const [speed, setSpeed] = useState('');
 
 
   
@@ -17,23 +18,23 @@ export default function SearchBar() {
 
   function handleIn(e) {
     e.preventDefault();
-    setName(e.target.value); //el value del input que ingresa por búsqueda va a setear el value del state
+    setName(e.target.value);
+    setSpeed(e.target.value); //el value del input que ingresa por búsqueda va a setear el value del state
     /* console.log(name) */
   }
 
   function handleSub(e) {
     e.preventDefault();
-    dispatch(getDetailByName(name));//acá lo que tipea el usuario le llega desde el estado local a la función que llama al back con ese name
+    dispatch(getDetailByName(name));
+    dispatch(getDetailBySpeed(speed));//acá lo que tipea el usuario le llega desde el estado local a la función que llama al back con ese name
     setName(''); //para que cuando ya se hizo la busqueda no me siga mostrando el nombre ingresado, seteo el nombre en comillas
   }
-
-
 
  return (
 <div>
   <h1>Search your pokemon</h1>
       <form onSubmit={handleSub}>
-        <input type="text" onChange={handleIn} value={name} />
+        <input type="text" onChange={handleIn} value={name, speed} />
         
         <input type="submit" value="Search..." />
       </form>

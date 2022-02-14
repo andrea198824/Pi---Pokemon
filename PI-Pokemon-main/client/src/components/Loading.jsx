@@ -6,7 +6,7 @@ const Loading = ()=>{
         <div className='center' >
             <div className='hijo'>
                 <img src='https://www.animatedimages.org/data/media/1446/animated-pokemon-image-0005.gif' alt='img' />
-                <h3 >Cargando...</h3>
+                <h3 >Loading...</h3>
             </div>
         </div>
     )

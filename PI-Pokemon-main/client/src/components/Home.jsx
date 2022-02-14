@@ -20,6 +20,7 @@ export default function Home() {
     const dispatch = useDispatch();
     const allPokemons = useSelector((state) => state.pokemons);
     //const state = useSelector((state) => state)
+    const [order, setOrder] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const pokemonPerPage = 12;
     const lastPokemon = currentPage * pokemonPerPage;
@@ -41,6 +42,7 @@ export default function Home() {
     useEffect(() => {
         dispatch(getPokemon());
         dispatch(getTypes());
+        dispatch(orderByName());
     }, [dispatch]);
 
     function handleClick(e) {
@@ -61,6 +63,7 @@ export default function Home() {
         e.preventDefault();
         dispatch(orderByName(e.target.value));
         setCurrentPage(1);
+        setOrder(e.target.value);
     }
 
     if (!allPokemons.length) {
@@ -113,7 +116,7 @@ export default function Home() {
                     <div className='center' color='white'>
                         <Link to='/pokemon'>
                             <button>Create a new pokemon</button>
-                            </Link>
+                        </Link>
                     </div>
                 </div>
                 <div className='center'>

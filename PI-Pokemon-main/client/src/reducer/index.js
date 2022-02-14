@@ -27,6 +27,13 @@ export function rootReducer(state = initialState, action) {
         ...state,
         pokemons: action.payload,
       };
+
+      case "SEARCH_POKEMON_SPEED":
+        return {
+          ...state,
+          pokemons: action.payload,
+        };
+      
     case "POST_POKEMON":
       return {
         ...state,
@@ -82,7 +89,7 @@ export function rootReducer(state = initialState, action) {
                     }
                     return 0;
                 })
-            }else if(action.payload === 'Attack+'){
+            }else if(action.payload === 'Atc+'){
                 orderSort = state.pokemons.sort(function(a,b){
                     if(a.attack > b.attack){
                         return -1;
