@@ -97,7 +97,7 @@ export default function Home() {
 
                         </select>
 
-                        <select onClick={(e) => handleOrderByName(e)}>
+                        <select onChange={(e) => handleOrderByName(e)}>
                             <option value='Order by Name'>Order by name</option>
                             <option value='Asc'> A - Z</option>
                             <option value='Desc'>Z - A</option>
