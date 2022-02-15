@@ -82,7 +82,7 @@ export default function Home() {
                     <div>
                         <select onChange={(e) => handleFilterCreated(e)}>
 
-                            <option value='All'>Todos</option>
+                            <option value='All'>All/option>
                             <option value='Created'>Created</option>
                             <option value='Source'>Database</option>
 
