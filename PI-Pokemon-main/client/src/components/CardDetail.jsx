@@ -29,34 +29,38 @@ export default function Detail() {
     } else {
 
         return (
-            <div className="homecard" >
+            <div  >
+
                 {
                     detailPokemon?.map((c) => {
                         return (
                             <React.Fragment>
 
-                                <div className="margin">
-                                    <div className="titulo">
-                                        <h1 className="texto" >{c.name.charAt(0).toUpperCase() + c.name.slice(1)}</h1>
-                                        <img className="imagen"  src={c.imageDetail} alt='Img not found' />
-                                        <h2 className="texto1">Type: {c.types.map((c) => c.name)}</h2>
-                                        <h3 className="texto1">Id: {c.id}</h3>
-                                        <h3 className="texto1">Statistics:
+                                <div className="homecard">
+                                    <div >
+                                        <h1 className="titulo" >{c.name.charAt(0).toUpperCase() + c.name.slice(1)}</h1>
+                                        <img className="imagen" src={c.image} alt='Img not found' />
+                                       <div className="margin"> 
+                                       <h2>Id: {c.id}</h2>
+                                           <h3>Type: {c.types.map((c) => c.name)}</h3>
+                                        
+                                        <h3>Statistics:
                                             attack - {c.attack}, defense - {c.defense},
                                             speed - {c.speed}, Hp - {c.hp}</h3>
-                                        <h3 className="texto1">Heigh: {c.height}</h3>
-                                        <h3 className="texto1">Weight: {c.weight}</h3>
+                                        <h3>Heigh: {c.height}</h3>
+                                        <h3>Weight: {c.weight}</h3>
+                                        <Link to='/home'>
+                                    <button type='submit' name='submit'> Back </button>
+                                </Link>
+                                        </div>
                                     </div>
                                 </div>
-                                <Link to='/home'>
-                                    <button type='submit' name='submit'> Volver </button>
-                                </Link>
+
 
                             </React.Fragment>
                         )
                     })
                 }
-
             </div>
 
         )

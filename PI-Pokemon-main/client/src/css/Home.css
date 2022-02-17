@@ -3,13 +3,8 @@
     background-repeat: no-repeat;
     background-position: top center;
     background-attachment: fixed;
-    height: auto;
-
-    
-  }
-  .titulo{
-    grid-column: 1 / 3;
-    grid-row: 1;
+    border:0;
+   
   }
 
   .barra{
@@ -50,5 +45,10 @@
     text-decoration:none;
     color:black;
   }
-  
+
+  .textHome {
+    text-align: center;
+    font-size: small;
+    color: white;
+  }
   

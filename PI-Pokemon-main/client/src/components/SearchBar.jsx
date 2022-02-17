@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getDetailByName, getDetailBySpeed } from "../actions";
-
+import '../css/SearchBar.css';
 
 
 
@@ -20,7 +20,6 @@ export default function SearchBar() {
     e.preventDefault();
     setName(e.target.value);
     setSpeed(e.target.value); //el value del input que ingresa por búsqueda va a setear el value del state
-    /* console.log(name) */
   }
 
   function handleSub(e) {
@@ -31,8 +30,8 @@ export default function SearchBar() {
   }
 
  return (
-<div>
-  <h1>Search your pokemon</h1>
+<div >
+  <h3 className="textoBar">Search your pokemon</h3>
       <form onSubmit={handleSub}>
         <input type="text" onChange={handleIn} value={name, speed} />
         

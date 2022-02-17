@@ -74,22 +74,24 @@ export default function Home() {
 
         return (
             <div className='home'>
-                <div className='titulo'>
+                
+                <div>
                     <h1>Choose your  Pokemon!</h1>
                 </div>
                 <div className='barra'>
                     <SearchBar />
                     <div>
+                    <h1 className='textHome'>Search by type or name</h1>
                         <select onChange={(e) => handleFilterCreated(e)}>
 
-                            <option value='All'>All/option>
+                            <option value='All'>All</option>
                             <option value='Created'>Created</option>
                             <option value='Source'>Database</option>
 
                         </select>
                     </div>
                     <div>
-
+                    <h1 className='textHome'>Search by type or name</h1>
                         <select onChange={(e) => handleFilterByType(e)}>
                             <option value=''>Search by type</option>
                             {allType.map((c) => {

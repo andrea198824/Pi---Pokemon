@@ -8,28 +8,46 @@ export function getPokemon() {
       type: "GET_POKEMON",
       payload: json.data,
     });
-    
   };
 }
 
+// export function getTypes() {
+//   return async function (dispatch) {
+//     var json = await axios.get("http://localhost:3001/type");
+//     return dispatch({
+//       type: "GET_TYPE",
+//       payload: json.data,
+//     });
+//   };
+// }
 
 export function getTypes() {
-  return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/type");
-    return dispatch({
-      type: "GET_TYPE",
-      payload: json.data,
-    });
+  return function (dispatch) {
+    return axios
+      .get("http://localhost:3001/type")
+      .then((json) => {
+        dispatch({
+          type: "GET_TYPE",
+          payload: json.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 }
 
 export function getDetail(id) {
   return async function (dispatch) {
-    var json = await axios.get(`http://localhost:3001/pokemons/${id}`);
-    return dispatch({
-      type: "GET_DETAIL",
-      payload: json.data,
-    });
+    try {
+      var json = await axios.get(`http://localhost:3001/pokemons/${id}`);
+      return dispatch({
+        type: "GET_DETAIL",
+        payload: json.data,
+      });
+    } catch {
+      console.log(error);
+    }
   };
 }
 
@@ -45,7 +63,9 @@ export function getDetailByName(name) {
 
 export function getDetailBySpeed(speed) {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/pokemons/?speed=" + speed);
+    var json = await axios.get(
+      "http://localhost:3001/pokemons/?speed=" + speed
+    );
     return dispatch({
       type: "SEARCH_POKEMON_SPEED",
       payload: json.data,
@@ -53,21 +73,21 @@ export function getDetailBySpeed(speed) {
   };
 }
 
-
 export function postPokemon(payload) {
-  return function(dispatch){
-      return fetch('http://localhost:3001/pokemon',{
-                      method: 'POST',
-                      headers: {'Content-Type': 'application/json'},
-                      body: JSON.stringify(payload)
+  return function (dispatch) {
+    return fetch("http://localhost:3001/pokemon", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: "POST_POKEMON", payload: json });
       })
-          .then(response =>response.json())
-          .then((json)=>{
-              dispatch({type: "POST_POKEMON", payload: json});
-          })
-          .catch((error) =>{console.log(error)})
-  }
-  
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 }
 
 export function filterPokemonCreated(payload) {
@@ -89,5 +109,3 @@ export function orderByName(payload) {
     payload: payload,
   };
 }
-
-

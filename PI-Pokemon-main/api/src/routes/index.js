@@ -53,38 +53,7 @@ const getApiInfo = async () => {
         console.log(e);
     }
 }
-    
-//     const apiData = apiUrl.data.results.map(c => {
-//         return {
-//             name: c.name,
-//             url: c.url,
-//         };
-//     })
 
-//     var allPokemon = [];
-
-//     for (pokemon of apiData) {
-//         var apiInfo = await axios.get(`${pokemon.url}`);
-//         allPokemon.push({
-//             id: apiInfo.data.id,
-//             name: apiInfo.data.name,
-//             image: apiInfo.data.sprites.other.dream_world.front_default,
-//             imageDetail: apiInfo.data.sprites.other.home.front_default ,
-//             hp: apiInfo.data.stats[0].base_stat,
-//             attack: apiInfo.data.stats[1].base_stat,
-//             defense: apiInfo.data.stats[2].base_stat,
-//             speed: apiInfo.data.stats[5].base_stat,
-//             height: apiInfo.data.height,
-//             weight: apiInfo.data.weight,
-//             types: apiInfo.data.types.map(types => ({
-//                 name: types.type.name,
-//                 id: types.slot
-//             })),
-
-//         })
-//     }
-//     return allPokemon;
-// }
 
 const getDbInfo = async () => {
     return await Pokemon.findAll({
@@ -105,7 +74,7 @@ const getPokemonDetail = async(e) => {
         const pokeData = {
             id: data.id,
             name: data.name,
-            img: data.sprites.other.home.front_default,
+            image: data.sprites.other.home.front_default,
             types: data.types.map((e) => {
                 return{
                     name: e.type.name,
@@ -148,14 +117,13 @@ router.get("/pokemons", async (req, res, next) => {
         } else if(speed){
             let speedPoke = await pokeTotal.filter((pok) =>
             pok.speed == Number(speed));
-            speedPoke.length //si hay algún nombre
+            speedPoke.length 
                 ? res.status(200).send(speedPoke)
                 : res
                     .status(404)
                     .send({ info: "Sorry, the pokemon you are looking for is not here." });
         }else {
-            res.status(200).send(pokeTotal); //el otro caso es que no haya un
-            //query y manda un status 200 con todos los dogs
+            res.status(200).send(pokeTotal); 
         }
     } catch (error) {
         next(error);

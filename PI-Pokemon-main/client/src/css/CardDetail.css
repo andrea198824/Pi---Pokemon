@@ -1,57 +1,41 @@
 .homecard {
   background-image: url(../Images/Home2.png);
-  background-position: center;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-
-  width: 100%;
-  overflow: hidden;
-  height: 90%;
-  position: relative;
+  background-attachment: fixed;
+  height: 900px ;
 }
 
-.contenedor {
-  position: fixed;
-  width: 800px;
-  height: 530px;
-  margin-top: 50px;
-  padding-top: 10px;
-  padding-left: 10px;
-  margin-left: 400px;
-  text-decoration: none;
-  outline: none;
-  border-radius: 15px;
-  background-color: #fdf6fc73;
-  backdrop-filter: 1px;
-  border: #949193 1px solid;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+
 .titulo {
   color: rgb(17, 3, 3);
   flex-direction: column;
   font-family: Lato, Arial, Helvetica, sans-serif;
   font-weight: normal;
   text-shadow: 6px 6px 4px rgba(44, 11, 34, 0.473);
-  font-size: 40px;
-  text-align: center;
+  font-size: 70px;
   position: relative;
+  text-align: left;
+  margin-left: 700px;
 }
 .imagen {
   border-radius: 5%;
   justify-content: center;
-  height: auto;
-  width: auto;
+  height: 500px;
+  width: 600px;
   max-width: 350px;
-  max-height: 350px;
+  max-height: 450px;
   font-size: 30px;
+  float: left;
+  margin-left: 200px;
 }
 .nuevo {
   background-color: yellow;
 }
 .texto {
   font-size: 50px;
+  text-align: center;
 }
 
 .texto1 {
@@ -59,7 +43,7 @@
 }
 
 .margin {
-  margin: bottom 10px;
-  margin-left: 10%;
-  margin-right: 0;
+  margin-top: 200px;
+  margin-left: 700px;
+  
 }

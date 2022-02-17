@@ -44,8 +44,8 @@ export function CreatePokemon() {
     const dispatch = useDispatch();
     const types = useSelector((state) => state.types);
     const pokemons = useSelector((state) => state.pokemons);
-    const history = useNavigate();
-    const [input, setInput] = useState({ name: "", hp: "", attack: "", defense: "", speed: "", height: "", weight: "", types: [] });
+    const navigate = useNavigate();
+    const [input, setInput] = useState({ name: "", image: "", hp: "", attack: "", defense: "", speed: "", height: "", weight: "", types: [] });
     const [errors, setErrors] = useState({});
     const [button, setButton] = useState(true);
     const [types2, setTypes] = useState([]);
@@ -69,6 +69,8 @@ export function CreatePokemon() {
         );
     }
 
+
+
     function handleSelect(e) {
 
         setInput({
@@ -76,7 +78,7 @@ export function CreatePokemon() {
             types: Array.from(new Set([...input.types, e.target.value]))
         })
 
-        if (input.name === '' || input.hp === '' || input.attack === '' || input.defense === '' || input.height === '' || input.weight === '' || input.types.length < 0) {
+        if (input.name === '' || input.image === ''|| input.hp === '' || input.attack === '' || input.defense === '' || input.height === '' || input.weight === '' || input.types.length < 0) {
             setButton(true)
         } else {
             setButton(false)
@@ -92,14 +94,14 @@ export function CreatePokemon() {
                 ...input,
                 [e.target.name]: "Pokémon duplicated",
             });
-            history.push('/home')
+            navigate('/home')
         } else {
             dispatch(postPokemon(input));
             alert('Pokemon Created');
             setInput({
                 name: "", hp: "", attack: "", defense: "", speed: "", height: "", weight: "", types: []
             });
-            history.push('/home');
+            navigate('/home');
         }
     }
     function handleDelete(e) {
@@ -135,7 +137,7 @@ export function CreatePokemon() {
 
                     />
                     {errors.hp && (<p>{errors.hp}</p>)}
-                    <label className='cyd'>Ataque: </label>
+                    <label className='cyd'>Attack: </label>
                     <input
                         type='number'
                         value={input.attack}
@@ -145,7 +147,7 @@ export function CreatePokemon() {
 
                     />
                     {errors.attack && (<p>{errors.attack}</p>)}
-                    <label className='cyd'>Defensa: </label>
+                    <label className='cyd'>Defense: </label>
                     <input
                         type='number'
                         value={input.defense}
@@ -155,7 +157,7 @@ export function CreatePokemon() {
 
                     />
                     {errors.defense && (<p >{errors.defense}</p>)}
-                    <label className='cyd' >Velocidad: </label>
+                    <label className='cyd' >Speed: </label>
                     <input
                         type='number'
                         value={input.speed}
@@ -165,7 +167,7 @@ export function CreatePokemon() {
 
                     />
                     {errors.speed && (<p>{errors.speed}</p>)}
-                    <label className='cyd'>Altura: </label>
+                    <label className='cyd'>Height: </label>
                     <input
                         type='number'
                         value={input.height}
@@ -175,7 +177,7 @@ export function CreatePokemon() {
 
                     />
                     {errors.height && (<p>{errors.height}</p>)}
-                    <label className='cyd'>Peso: </label>
+                    <label className='cyd'>Weight: </label>
                     <input
                         type='number'
                         value={input.weight}
@@ -184,16 +186,15 @@ export function CreatePokemon() {
                         onChange={handleOnChange}
 
                     />
-                    <label className='cyd'>Imagen: </label>
+                    <label className='cyd'>Image: </label>
                     <input
                         type='text'
                         value={input.image}
-                        name='img'
+                        name='image'
                         placeholder='URL image'
                         onChange={(e) => handleOnChange(e)}
                         />
                         {errors.image && <p>{errors.image}</p>}
-                    {errors.weight && (<p>{errors.weight}</p>)}
                     <label className='cyd'>Type: </label>
                     <select
                         name='type'
@@ -231,7 +232,7 @@ export function CreatePokemon() {
                     <ul ><li >{input.types?.map(e => e + ' ')}</li></ul>
                     <button >Create a Pokemon</button>
                     <Link to='/home'>
-                        <button type='submit' name='submit'>Volver</button>
+                        <button type='submit' name='submit'>Back</button>
                     </Link>
                 </form>
             </div >
