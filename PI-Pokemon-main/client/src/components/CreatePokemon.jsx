@@ -3,32 +3,50 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postPokemon, getTypes, getPokemon, deletePokemon } from '../actions/index';
+import { postPokemon, getTypes, getPokemon } from '../actions/index';
 
 function validate(input) {
     let errors = {};
     if (input.name === '') {
         errors.name = 'Name is required'
     }
-    if (input.hp < 0) {
+    else if (!input.hp) {
+        errors.hp = "Hp is required";
+    }
+    else if (input.hp < 0) {
         errors.hp = 'Should be greater than zero'
     }
-    if (input.attack < 0) {
+    else if (!input.attack ) {
+        errors.attack  = "Attack  is required";
+    }
+    else if (input.attack < 0) {
         errors.attack = 'Should be greater than zero'
     }
-    if (input.defense < 0) {
+    else if (!input.defense ) {
+        errors.defense  = "Defense is required";
+    }
+    else if (input.defense < 0) {
         errors.defense = 'Should be greater than zero'
     }
-    if (input.speed < 0) {
+    else if (!input.speed) {
+        errors.speed = "Speed is required";
+    }
+    else if (input.speed < 0) {
         errors.speed = 'Should be greater than zero'
     }
-    if (input.height < 0) {
+    else if (!input.height) {
+        errors.height = "Height is required";
+    }
+    else if (input.height < 0) {
         errors.height = 'Should be greater than zero'
     }
-    if (input.weight < 0) {
+    else if (!input.weight) {
+        errors.weight = "Weight is required";
+    }
+    else if (input.weight < 0) {
         errors.weight = 'Should be greater than zero'
     }
-    if (input.types.length === 0) {
+    else if (input.types.length === 0) {
         errors.types = 'Debe tener al menos un tipo'
     } else if (!input.image) {
         errors.image = "Please insert an image URL";
@@ -47,7 +65,6 @@ export function CreatePokemon() {
     const navigate = useNavigate();
     const [input, setInput] = useState({ name: "", image: "", hp: "", attack: "", defense: "", speed: "", height: "", weight: "", types: [] });
     const [errors, setErrors] = useState({});
-    const [button, setButton] = useState(true);
     const [types2, setTypes] = useState([]);
 
 
@@ -70,18 +87,14 @@ export function CreatePokemon() {
     }
 
     function handleSelect(e) {
-
-        setInput({
-            ...input,
-            types: Array.from(new Set([...input.types, e.target.value]))
-        })
-
-        if (input.name === '' || input.image === '' || input.hp === '' || input.attack === '' || input.defense === '' || input.height === '' || input.weight === '' || input.types.length < 0) {
-            setButton(true)
-        } else {
-            setButton(false)
+        if (!types2.includes(e.target.value)) {
+            if (types2.length > 0) {
+                setTypes([...types2, e.target.value]);
+            } else {
+                setTypes([e.target.value]);
+            }
         }
-
+        console.log(e.target.value);
     }
 
     function handleSubmit(e) {
@@ -93,15 +106,36 @@ export function CreatePokemon() {
                 [e.target.name]: "Pokémon duplicated",
             });
             navigate('/home')
-        } else {
-            dispatch(postPokemon(input));
+        } else if(
+            errors.name !== undefined ||
+            errors.hp !== undefined ||
+            errors.speed !== undefined ||
+            errors.attack !== undefined ||
+            errors.height !== undefined ||
+            errors.weight !== undefined ||
+            errors.defense !== undefined ){
+                document.getElementById("DoNotSubmit");
+                return alert("Please complete the fields with valid data")
+        }
+        const addPok = {
+            name: input.name,
+            height: input.height,
+            weight: input.weight,
+            hp: input.hp,
+            speed: input.speed,
+            attack: input.attack,
+            image: input.image,
+            types: types2,
+        }
+            dispatch(postPokemon(addPok));
             alert('Pokemon Created');
             setInput({
-                name: "", hp: "", attack: "", defense: "", speed: "", height: "", weight: "", types: []
+                name: "", hp: "", attack: "", defense: "", speed: "", height: "",image:"", weight: "", types: []
             });
+            setTypes([]);
             navigate('/home');
         }
-    }
+    
     const handleDelete = e => {
 
         setTypes(types2.filter((temp) => temp !== e.target.value))
@@ -194,7 +228,7 @@ export function CreatePokemon() {
                     <div className='cyd'>
                         <label >Type: </label>
                         <select
-                            name='type'
+                            name='types'
                             onChange={(e) => handleSelect(e)}
                             type='text'
                         >
@@ -210,7 +244,7 @@ export function CreatePokemon() {
                         </select>
 
 
-                            {/* {types2.map((t) => {
+                            {types2.map((t) => {
                                 return (
                                     <React.Fragment key={t}>
 
@@ -222,7 +256,7 @@ export function CreatePokemon() {
                                         </div>
                                     </React.Fragment>
                                 );
-                            })} */}
+                            })}
                         </div>
                             <br/>
                     {/*errors.types && (<p className={style.error}>{errors.types}</p>) */}
@@ -232,18 +266,6 @@ export function CreatePokemon() {
                         <button className="back" type='submit' name='submit'>Back</button>
                     </Link>
                 </form>
-
-                <div>{input.types?.map(e => {
-                        return(
-                            <div>
-                                {e}
-                                <button  onClick={() => handleDelete()}>
-                                                x
-                                            </button>
-                            </div>
-                        )
-                    }
-                    )}</div>
             </div >
         </div >
     )
