@@ -54,7 +54,6 @@ const getApiInfo = async () => {
     }
 }
 
-
 const getDbInfo = async () => {
     return await Pokemon.findAll({
         include: {
@@ -67,31 +66,31 @@ const getDbInfo = async () => {
     })
 }
 
-const getPokemonDetail = async(e) => {
-    try{
-        const apiData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${e}`);
-        const data = await apiData.data;
-        const pokeData = {
-            id: data.id,
-            name: data.name,
-            image: data.sprites.other.home.front_default,
-            types: data.types.map((e) => {
-                return{
-                    name: e.type.name,
-                };
-            }),
-            hp: apiInfo.data.stats[0].base_stat,
-            attack: apiInfo.data.stats[1].base_stat,
-            defense: apiInfo.data.stats[2].base_stat,
-            speed: apiInfo.data.stats[5].base_stat,
-            height: apiInfo.data.height,
-            weight: apiInfo.data.weight
-        };
-        return pokeData;
-    } catch (e){
-        console.log(e)
-    }
-};
+// const getPokemonDetail = async(e) => {
+//     try{
+//         const apiData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${e}`);
+//         const data = await apiData.data;
+//         const pokeData = {
+//             id: data.id,
+//             name: data.name,
+//             image: data.sprites.other.home.front_default,
+//             types: data.types.map((e) => {
+//                 return{
+//                     name: e.type.name,
+//                 };
+//             }),
+//             hp: apiInfo.data.stats[0].base_stat,
+//             attack: apiInfo.data.stats[1].base_stat,
+//             defense: apiInfo.data.stats[2].base_stat,
+//             speed: apiInfo.data.stats[5].base_stat,
+//             height: apiInfo.data.height,
+//             weight: apiInfo.data.weight
+//         };
+//         return pokeData;
+//     } catch (e){
+//         console.log(e)
+//     }
+// };
 
 const getAllPokemon = async () => {
     const apiInfo = await getApiInfo();
@@ -102,7 +101,7 @@ const getAllPokemon = async () => {
 
 router.get("/pokemons", async (req, res, next) => {
     try {
-        const {name, speed} = req.query;
+        const {name} = req.query;
         let pokeTotal = await getAllPokemon(); //me traigo todos, Db y api
         if (name) {
             // si hay un nombre por query
@@ -114,15 +113,7 @@ router.get("/pokemons", async (req, res, next) => {
                 : res
                     .status(404)
                     .send({ info: "Sorry, the pokemon you are looking for is not here." });
-        } else if(speed){
-            let speedPoke = await pokeTotal.filter((pok) =>
-            pok.speed == Number(speed));
-            speedPoke.length 
-                ? res.status(200).send(speedPoke)
-                : res
-                    .status(404)
-                    .send({ info: "Sorry, the pokemon you are looking for is not here." });
-        }else {
+        } else {
             res.status(200).send(pokeTotal); 
         }
     } catch (error) {
@@ -192,4 +183,18 @@ router.post('/pokemon', async (req, res, next) => {
     }
 })
 
+router.delete('/pokemons/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        await Pokemon.destroy({
+            where: {
+                id,
+            }
+        });
+        res.status(200).send('Pokemon eliminated');
+    } catch(error) {
+        console.log(error);
+        res.status(400).send('can not find that Pokemon');
+    }
+})
 module.exports = router;

@@ -3,6 +3,7 @@ import '../css/Card.css'
 
 
 export default function Card({name, image, types}){
+
     return (
         <div> 
             <div className="caja" >               

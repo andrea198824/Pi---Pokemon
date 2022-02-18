@@ -11,14 +11,14 @@
     position: absolute;
     top: 10rem;
     right: 10rem;
-    height: 35rem;
+    height: 37rem;
     display:flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     align-content: space-around;
     background-color: rgb(0,0,0,0.5);
-    width: 32rem;
+    width: 34rem;
 }
 
 .boxo {
@@ -45,4 +45,8 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+
+  .back{
+      margin-left: 400px;
   }

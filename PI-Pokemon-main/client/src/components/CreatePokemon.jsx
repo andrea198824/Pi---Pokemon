@@ -3,30 +3,30 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postPokemon, getTypes, getPokemon } from '../actions/index';
+import { postPokemon, getTypes, getPokemon, deletePokemon } from '../actions/index';
 
 function validate(input) {
     let errors = {};
     if (input.name === '') {
-        errors.name = 'Es necesario un nombre'
+        errors.name = 'Name is required'
     }
     if (input.hp < 0) {
-        errors.hp = 'Debe ser mayor a 0'
+        errors.hp = 'Should be greater than zero'
     }
     if (input.attack < 0) {
-        errors.attack = 'Debe ser mayor a 0'
+        errors.attack = 'Should be greater than zero'
     }
     if (input.defense < 0) {
-        errors.defense = 'Debe ser mayor a 0'
+        errors.defense = 'Should be greater than zero'
     }
     if (input.speed < 0) {
-        errors.speed = 'Debe ser mayor a 0'
+        errors.speed = 'Should be greater than zero'
     }
     if (input.height < 0) {
-        errors.height = 'Debe ser mayor a 0'
+        errors.height = 'Should be greater than zero'
     }
     if (input.weight < 0) {
-        errors.weight = 'Debe ser mayor a 0'
+        errors.weight = 'Should be greater than zero'
     }
     if (input.types.length === 0) {
         errors.types = 'Debe tener al menos un tipo'
@@ -69,8 +69,6 @@ export function CreatePokemon() {
         );
     }
 
-
-
     function handleSelect(e) {
 
         setInput({
@@ -78,7 +76,7 @@ export function CreatePokemon() {
             types: Array.from(new Set([...input.types, e.target.value]))
         })
 
-        if (input.name === '' || input.image === ''|| input.hp === '' || input.attack === '' || input.defense === '' || input.height === '' || input.weight === '' || input.types.length < 0) {
+        if (input.name === '' || input.image === '' || input.hp === '' || input.attack === '' || input.defense === '' || input.height === '' || input.weight === '' || input.types.length < 0) {
             setButton(true)
         } else {
             setButton(false)
@@ -89,7 +87,7 @@ export function CreatePokemon() {
     function handleSubmit(e) {
         e.preventDefault();
         if (pokemons.find((poke) => poke.name.toLowerCase() === input.name.toLowerCase().trim())) {
-            alert("Ya existe el Pokemon");
+            alert("Pokémon duplicated");
             setErrors({
                 ...input,
                 [e.target.name]: "Pokémon duplicated",
@@ -104,25 +102,23 @@ export function CreatePokemon() {
             navigate('/home');
         }
     }
-    function handleDelete(e) {
-        e.preventDefault();
-        setTypes(types2.filter((typ) => typ !== e.target.value));
-        console.log(types2);
-        console.log(e.target.value);
-    }
+    const handleDelete = e => {
+
+        setTypes(types2.filter((temp) => temp !== e.target.value))
+    };
 
 
     return (
         <div className="body">
             <div className="create">
-                <h1>Creá tu propio Pokemon</h1>
+                <h1>Create your own Pokemon!</h1>
                 <form className="boxo" onSubmit={handleSubmit}>
-                    <label className='cyd'>Nombre: </label>
+                    <label className='cyd'>Name: </label>
                     <input
                         type='text'
                         value={input.name}
                         name='name'
-                        placeholder='Nombre...'
+                        placeholder='Name...'
                         onChange={handleOnChange}
 
                     />
@@ -142,7 +138,7 @@ export function CreatePokemon() {
                         type='number'
                         value={input.attack}
                         name='attack'
-                        placeholder='Ataque...'
+                        placeholder='Attack...'
                         onChange={handleOnChange}
 
                     />
@@ -152,7 +148,7 @@ export function CreatePokemon() {
                         type='number'
                         value={input.defense}
                         name='defense'
-                        placeholder='Defensa...'
+                        placeholder='Defense...'
                         onChange={handleOnChange}
 
                     />
@@ -162,7 +158,7 @@ export function CreatePokemon() {
                         type='number'
                         value={input.speed}
                         name='speed'
-                        placeholder='Velocidad...'
+                        placeholder='Speed...'
                         onChange={handleOnChange}
 
                     />
@@ -172,7 +168,7 @@ export function CreatePokemon() {
                         type='number'
                         value={input.height}
                         name='height'
-                        placeholder='Altura...'
+                        placeholder='Height...'
                         onChange={handleOnChange}
 
                     />
@@ -182,7 +178,7 @@ export function CreatePokemon() {
                         type='number'
                         value={input.weight}
                         name='weight'
-                        placeholder='Peso...'
+                        placeholder='Weight...'
                         onChange={handleOnChange}
 
                     />
@@ -193,48 +189,61 @@ export function CreatePokemon() {
                         name='image'
                         placeholder='URL image'
                         onChange={(e) => handleOnChange(e)}
-                        />
-                        {errors.image && <p>{errors.image}</p>}
-                    <label className='cyd'>Type: </label>
-                    <select
-                        name='type'
-                        onChange={(e) => handleSelect(e)}
-                        type='text'
-                    >
-                        <option value={null}></option>
-                        {types.map((typ, id) => {
+                    />
+                    {errors.image && <p>{errors.image}</p>}
+                    <div className='cyd'>
+                        <label >Type: </label>
+                        <select
+                            name='type'
+                            onChange={(e) => handleSelect(e)}
+                            type='text'
+                        >
+                            <option value={null}></option>
+                            {types.map((typ, id) => {
 
-                            return (
-                                <option key={id} value={typ.name}>
-                                    {typ.name}
-                                </option>
-                            );
-                        })}
-                    </select>
-                    {types2.map((typ, id) => {
+                                return (
+                                    <option key={id} value={typ.name}>
+                                        {typ.name}
+                                    </option>
+                                );
+                            })}
+                        </select>
 
-                        return (
-                            <React.Fragment key={id}>
-                                <div>
-                                    {typ}
-                                    <button
-                                        value={typ}
-                                        onClick={(e) => handleDelete(e)}
-                                    >
-                                        x
-                                    </button>
-                                </div>
-                            </React.Fragment>
-                        );
-                    })}
 
-                    {/*errors.types && (<p className={style.error}>{errors.types}</p>)*/}
-                    <ul ><li >{input.types?.map(e => e + ' ')}</li></ul>
-                    <button >Create a Pokemon</button>
+                            {/* {types2.map((t) => {
+                                return (
+                                    <React.Fragment key={t}>
+
+                                        <div>
+                                            {t}
+                                            <button value={t} onClick={(t) => handleDelete(t)}>
+                                                x
+                                            </button>
+                                        </div>
+                                    </React.Fragment>
+                                );
+                            })} */}
+                        </div>
+                            <br/>
+                    {/*errors.types && (<p className={style.error}>{errors.types}</p>) */}
+                    
+                    <button type='submit' name='submit' >Create</button>
                     <Link to='/home'>
-                        <button type='submit' name='submit'>Back</button>
+                        <button className="back" type='submit' name='submit'>Back</button>
                     </Link>
                 </form>
+
+                <div>{input.types?.map(e => {
+                        return(
+                            <div>
+                                {e}
+                                <button  onClick={() => handleDelete()}>
+                                                x
+                                            </button>
+                            </div>
+                        )
+                    }
+                    )}</div>
             </div >
         </div >
     )

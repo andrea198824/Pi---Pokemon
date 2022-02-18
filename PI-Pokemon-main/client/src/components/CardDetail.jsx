@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from "../actions";
+import { getDetail, deletePokemon } from "../actions";
 import { useParams } from "react-router-dom";
 import Loading from "./Loading";
 import '../css/CardDetail.css';

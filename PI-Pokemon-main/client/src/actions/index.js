@@ -11,31 +11,16 @@ export function getPokemon() {
   };
 }
 
-// export function getTypes() {
-//   return async function (dispatch) {
-//     var json = await axios.get("http://localhost:3001/type");
-//     return dispatch({
-//       type: "GET_TYPE",
-//       payload: json.data,
-//     });
-//   };
-// }
-
 export function getTypes() {
-  return function (dispatch) {
-    return axios
-      .get("http://localhost:3001/type")
-      .then((json) => {
-        dispatch({
-          type: "GET_TYPE",
-          payload: json.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  return async function (dispatch) {
+    var json = await axios.get("http://localhost:3001/type");
+    return dispatch({
+      type: "GET_TYPE",
+      payload: json.data,
+    });
   };
 }
+
 
 export function getDetail(id) {
   return async function (dispatch) {
@@ -45,7 +30,21 @@ export function getDetail(id) {
         type: "GET_DETAIL",
         payload: json.data,
       });
-    } catch {
+    } catch(error) {
+      console.log(error);
+    }
+  };
+}
+
+export function deletePokemon(id) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.delete(`http://localhost:3001/pokemons/${id}`);
+      return dispatch({
+        type: "DELETE_POKEMON",
+        payload: json.data,
+      });
+    } catch(error) {
       console.log(error);
     }
   };
@@ -61,17 +60,6 @@ export function getDetailByName(name) {
   };
 }
 
-export function getDetailBySpeed(speed) {
-  return async function (dispatch) {
-    var json = await axios.get(
-      "http://localhost:3001/pokemons/?speed=" + speed
-    );
-    return dispatch({
-      type: "SEARCH_POKEMON_SPEED",
-      payload: json.data,
-    });
-  };
-}
 
 export function postPokemon(payload) {
   return function (dispatch) {
@@ -109,3 +97,5 @@ export function orderByName(payload) {
     payload: payload,
   };
 }
+
+
